@@ -8,20 +8,22 @@ class StocksController < ApplicationController
   end
 
   def quoted
-    @stock = Stock.new(params[:symbol])
+    @symbol = params[:symbol]
+    @stock = Stock.new(@symbol)
     @price = @stock.get_quote_price()
     @name = @stock.get_quote_name()
   end
 
   def buy
-    @user.portfolios.create(stock_params)
-    redirect_to '/portfolio/show'
+    @stock = Stock.new(params.require(:symbol))
+    if @stock.buy_stock?(params.require(:shares))
+      redirect_to '/portfolio/show'
+    else
+      
+    end
   end
 
   def sell
   end
 
-  private def stock_params
-    params.require(:comment).permit(:username, :body)
-  end
 end
