@@ -14,8 +14,14 @@ class StocksController < ApplicationController
   end
 
   def buy
+    @user.portfolios.create(stock_params)
+    redirect_to '/portfolio/show'
   end
 
   def sell
+  end
+
+  private def stock_params
+    params.require(:comment).permit(:username, :body)
   end
 end

@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   post 'quote', to: 'stocks#quote'
 
-  get 'stocks/buy'
+  post 'buy', to: 'stocks#buy'
 
   get 'stocks/sell'
 
