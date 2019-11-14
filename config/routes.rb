@@ -12,9 +12,9 @@ Rails.application.routes.draw do
 
   delete 'logout', to: 'sessions#logout'
 
-  get 'stocks', to: 'stocks#new'
+  get 'quote', to: 'stocks#new'
 
-  get 'stocks/quote'
+  post 'quote', to: 'stocks#quote'
 
   get 'stocks/buy'
 
