@@ -14,8 +14,4 @@ class Stock
         @response["latestPrice"]
     end
 
-    def get_quote_price_open
-        @response["open"]
-    end
-
 end

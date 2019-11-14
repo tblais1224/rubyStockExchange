@@ -1,0 +1,31 @@
+<h1>Stock Exchange</h1>
+<p>Quote a stock then buy</p>
+
+<%= form_tag '/quote' do %>
+<%= label_tag :symbol %>
+<%= text_field_tag :symbol %>
+<%= submit_tag "Quote" %>
+<%end%>
+
+<% if @price %>
+<h3><%= @name %> latest price is $<%= @price %>.</h3>
+<%= form_tag '/buy' do %>
+<%= label_tag :shares %>
+<%= number_field_tag :shares,  nil, min: 1, :sel => @price , :id => "shares" %>
+<h3 id="sharesValue"></h3>
+<%= submit_tag "Buy" %>
+<%end%>
+<% else %>
+<h3>Invalid stock symbol, try again.</h3>
+<% end %>
+
+<script>
+    $(document).ready(function () {
+        $('#shares').change(function () {
+            $("#sharesValue").empty();
+            let shareShares = $(this).val() === "1" ? "share" : "shares"
+            $('#sharesValue').append($(this).val(), ` ${shareShares} will cost $`, Math.round(parseFloat($(this)
+                .val()) * parseFloat($(this).attr('sel')) * 100) / 100);
+        });
+    });
+</script>
