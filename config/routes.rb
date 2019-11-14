@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'portfolio/show'
+
+  get 'portfolio/history'
+
   resources :users, only: [:new, :create]
 
   get 'login', to: 'sessions#new'
