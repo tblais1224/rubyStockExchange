@@ -6,8 +6,3 @@
     <%= text_field_tag :symbol %>
     <%= submit_tag "Quote" %>
 <%end%>
-
-<% if @price %>
-    <h3><%= @name %> latest price is $<%= @price %>.</h3>
-    <h3>This stock opened at $<%= @openPrice %>.</h3>
-<% end %>

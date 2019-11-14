@@ -1,9 +1,9 @@
 class Stock
     require 'rest-client'
 
-    def initialize
-        @symbol = symbol.upcase
-        @response = RestClient.get("https://cloud.iexapis.com/stable/stock/#{@symbol}/quote?token=#{stockApiSecret}")
+    def initialize(symbol)
+        @symbol = symbol
+        @response = JSON.parse(RestClient.get("https://cloud.iexapis.com/stable/stock/#{@symbol}/quote?token=#{Rails.configuration.SECRET_KEY}"))
     end
 
     def get_quote_name

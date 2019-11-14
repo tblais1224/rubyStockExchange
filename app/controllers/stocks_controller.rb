@@ -4,10 +4,11 @@ class StocksController < ApplicationController
   end
   
   def quote
-    stock = Stock.new(params.require(:symbol).upcase)
-    @price = stock.get_quote_price
-    @name = stock.get_quote_name
-    @openPrice = stock.get_quote_price_open
+    @stock = Stock.new(params.require(:symbol).upcase)
+    @price = @stock.get_quote_price()
+    @name = @stock.get_quote_name()
+    @openPrice = @stock.get_quote_price_open()
+    redirect_to '/quote'
   end
 
   def buy
