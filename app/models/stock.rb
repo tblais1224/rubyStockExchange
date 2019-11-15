@@ -14,24 +14,4 @@ class Stock
         @response["latestPrice"]
     end
 
-    def buy_stock?(shares)
-        #shares name total(buy price) symbol userid
-        @portfolio = Portfolio.new(buy_stock_params(shares))
-        if @portfolio.save
-            return true
-        else
-            return false
-        end
-    end
-
-    private def buy_stock_params(shares)
-        @portfolio = new Portfolio(
-            @response["symbo"],
-            get_quote_name(),
-            shares.to_i,
-            get_quote_price().to_f
-        )
-        puts @portfolio
-    end
-
 end

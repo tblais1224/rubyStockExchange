@@ -11,7 +11,7 @@
 <h3><%= @name %> latest price is $<%= @price %>.</h3>
 <%= form_tag '/buy' do %>
     <%= label_tag :shares %>
-    <%= number_field_tag :shares,  nil, min: 1, :sel => @price , :id => "shares" %>
+    <%= number_field_tag :shares, nil, min: 1, :sel => @price , :id => "shares" %>
     <h3 id="sharesValue"></h3>
     <%= hidden_field_tag :symbol, @symbol %>
     <%= submit_tag "Buy", data: {confirm: 'Are you sure you want to purchase this stock?'}%>
