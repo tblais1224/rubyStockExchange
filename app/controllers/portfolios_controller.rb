@@ -1,7 +1,14 @@
 class PortfoliosController < ApplicationController
 
   def show
-
+    @portfolio = Portfolio.where(user_id: session[:user_id]).all
+    @totalPortfolioValue = 0
+    @portfolio.each do |stock|
+      @newStock = Stock.new(stock.symbol)
+      stock['total'] = @newStock.get_quote_price() * stock.shares
+      @totalPortfolioValue += stock.total
+    end
+    @portfolio
   end
 
   def history

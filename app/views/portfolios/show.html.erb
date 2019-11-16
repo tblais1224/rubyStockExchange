@@ -22,23 +22,33 @@
             <th scope="col">Shares</th>
             <th scope="col">Price ($)</th>
             <th scope="col">Total ($)</th>
+            <th scope="col">Sell Shares</th>
         </tr>
     </thead>
     <tbody>
+        <% @portfolio.each do |stock| %>
         <tr>
-            <td>  </td>
-            <td>  </td>
-            <td>  </td>
-            <td>  </td>
-            <td>  </td>
+                <td><%= stock.symbol %></td>
+                <td><%= stock.name %></td>
+                <td><%= stock.shares %></td>
+                <td><%= stock.total/stock.shares %></td>
+                <td><%= stock.total %></td>
+                <td>
+                <%= form_tag '/sell' do %>
+                    <%= number_field_tag :shares, nil, min: 1, max: stock.shares %>
+                    <%= hidden_field_tag :symbol, @symbol %>
+                    <%= submit_tag "sell", data: {confirm: 'Are you sure you want to sell this stock?'}%>
+                <%end%>
+                </td>
         </tr>
+        <% end %>
         
         <tr>
             <td> </td>
             <td> </td>
             <td> </td>
             <td> </td>
-            <td> </td>
+            <td><%= @totalPortfolioValue.round(2) %></td>
         </tr>
     </tbody>
 </table>
