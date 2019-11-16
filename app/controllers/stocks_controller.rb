@@ -19,10 +19,10 @@ class StocksController < ApplicationController
     @stock = Stock.new(@symbol)
     @portfolio = @stock.buy_stock(params.require(:shares).to_i, session[:user_id])
 
-    if @portfolio.save
-      redirect_to '/portfolio'
+    if @portfolio === "insufficient funds"
+      redirect_to quote_path(symbol: @symbol)
     else
-      redirect_to '/quote'
+      redirect_to '/portfolio'
     end
   end
 

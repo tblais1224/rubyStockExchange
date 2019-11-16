@@ -26,15 +26,24 @@ class Stock
         if @user["cash"] < shares * @total
             return "insufficient funds"
         end
-        
+
         newCash = (@user["cash"] - (@total * @shares)).round(2)
         @user.update(cash: newCash)
-        @portfolio = Portfolio.new(
+        
+        @portfolio = Portfolio.find_by(user_id: user_id, symbol: @symbol)
+        
+        if @portfolio
+            @shares += @portfolio.shares
+            @portfolio.update(shares: @shares)
+        else
+            @portfolio = Portfolio.new(
                 symbol: @symbol,
                 user_id: @user["id"],
-                total: @total,
                 name: @name,
                 shares: @shares)
+            @portfolio.save
+        end
+
         return @portfolio
     end
 end
