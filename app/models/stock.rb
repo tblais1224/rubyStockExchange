@@ -15,19 +15,19 @@ class Stock
     end
 
 
-    def buy_stock(shares)
+    def buy_stock(shares, user_id)
         @shares = shares
         @name = get_quote_name()
         @total = get_quote_price().to_f
         @symbol = @response["symbol"]
         
-        @user = User.find_by(id: session[:user_id])
+        @user = User.find_by(id: user_id)
 
         if @user["cash"] < shares * @total
             return "insufficient funds"
         end
         
-        newCash = @user["cash"] - (@total * @shares)
+        newCash = (@user["cash"] - (@total * @shares)).round(2)
         @user.update(cash: newCash)
         @portfolio = Portfolio.new(
                 symbol: @symbol,

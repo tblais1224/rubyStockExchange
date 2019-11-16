@@ -17,10 +17,10 @@ class StocksController < ApplicationController
   def buy
     @symbol = params.require(:symbol).upcase
     @stock = Stock.new(@symbol)
-    @portfolio = @stock.buy_stock(params.require(:shares).to_i)
+    @portfolio = @stock.buy_stock(params.require(:shares).to_i, session[:user_id])
 
     if @portfolio.save
-      redirect_to '/portfolio/show'
+      redirect_to '/portfolio'
     else
       redirect_to '/quote'
     end

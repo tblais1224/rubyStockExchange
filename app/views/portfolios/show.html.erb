@@ -1,0 +1,44 @@
+<h1>Portfolio</h1>
+<br>
+<h2>Cash available: <%= current_user.cash %></h2>
+<br>
+<%= form_tag '/cash/add' do %>
+    <%= label_tag :cash %>
+    <%= number_field_tag :cash, nil, min: 1%>
+    <%= submit_tag "Add Cash", data: {confirm: 'Are you sure you want to add cash?'}%>
+<%end%>
+<%= form_tag '/cash/withdraw' do %>
+    <%= label_tag :cash %>
+    <%= number_field_tag :cash, nil, min: 1%>
+    <%= submit_tag "Withdraw Cash", data: {confirm: 'Are you sure you want to withdraw cash?'}%>
+<%end%>
+
+<br>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Symbol</th>
+            <th scope="col">Name</th>
+            <th scope="col">Shares</th>
+            <th scope="col">Price ($)</th>
+            <th scope="col">Total ($)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>  </td>
+            <td>  </td>
+            <td>  </td>
+            <td>  </td>
+            <td>  </td>
+        </tr>
+        
+        <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+        </tr>
+    </tbody>
+</table>

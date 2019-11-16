@@ -1,8 +1,12 @@
 Rails.application.routes.draw do
 
-  get 'portfolios', to: 'portfolios#show'
+  get 'portfolio', to: 'portfolios#show'
 
   get 'history', to: 'portfolios#history'
+
+  post 'cash/add', to: 'portfolios#add_cash'
+
+  post 'cash/withdraw', to: 'portfolios#withdraw_cash'
 
   resources :users, only: [:new, :create]
 
