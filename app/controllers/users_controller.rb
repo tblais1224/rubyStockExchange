@@ -10,8 +10,8 @@ class UsersController < ApplicationController
   end
 
   def create
-
-    @user = User.create(params.require(:user).permit(:username, :password))
+    params.require(:user)["cash"] = 0.00
+    @user = User.create(params.require(:user).permit(:username, :password, :cash))
 
     session[:user_id] = @user.id
 

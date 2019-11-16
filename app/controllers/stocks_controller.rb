@@ -17,17 +17,7 @@ class StocksController < ApplicationController
   def buy
     @symbol = params.require(:symbol).upcase
     @stock = Stock.new(@symbol)
-    @shares = params.require(:shares).to_i
-    @name = @stock.get_quote_name
-    @total = @stock.get_quote_price.to_f
-    @user_id = session[:user_id]
-
-    @portfolio = Portfolio.new(
-      symbol: @symbol,
-      user_id: @user_id,
-      total: @total,
-      name: @name,
-      shares: @shares)
+    @portfolio = @stock.buy_stock(params.require(:shares).to_i)
 
     if @portfolio.save
       redirect_to '/portfolio/show'
