@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
-  get 'portfolio/show'
+  get 'portfolios', to: 'portfolios#show'
 
-  get 'portfolio/history'
+  get 'history', to: 'portfolios#history'
 
   resources :users, only: [:new, :create]
 
@@ -24,6 +24,6 @@ Rails.application.routes.draw do
 
   post 'buy', to: 'stocks#buy'
 
-  get 'stocks/sell'
+  post 'sell', to: 'stocks#sell'
 
 end
