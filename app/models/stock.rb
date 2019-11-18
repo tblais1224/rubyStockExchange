@@ -60,7 +60,12 @@ class Stock
         end
 
         @shares = @portfolio.shares - shares
-        @portfolio.update(shares: @shares)
+
+        if @shares === 0
+            Portfolio.find(@portfolio.id).destroy
+        else
+            @portfolio.update(shares: @shares)
+        end
 
         newCash = (@user["cash"] + (@total * @shares)).round(2)
         @user.update(cash: newCash)

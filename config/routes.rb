@@ -1,13 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'portfolio', to: 'portfolios#show'
-
-  get 'history', to: 'portfolios#history'
-
-  post 'cash/add', to: 'portfolios#add_cash'
-
-  post 'cash/withdraw', to: 'portfolios#withdraw_cash'
-
   resources :users, only: [:new, :create]
 
   get 'login', to: 'sessions#new'
@@ -29,5 +21,15 @@ Rails.application.routes.draw do
   post 'buy', to: 'stocks#buy'
 
   post 'sell', to: 'stocks#sell'
+
+  get 'history/buy', to: 'history#show_buy'
+
+  get 'history/sell', to: 'history#show_sell'
+
+  get 'portfolio', to: 'portfolios#show'
+
+  post 'cash/add', to: 'portfolios#add_cash'
+
+  post 'cash/withdraw', to: 'portfolios#withdraw_cash'
 
 end

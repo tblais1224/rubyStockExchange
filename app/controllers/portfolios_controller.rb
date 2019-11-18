@@ -11,10 +11,6 @@ class PortfoliosController < ApplicationController
     @portfolio
   end
 
-  def history
-
-  end
-
   def add_cash
     @user = User.find_by(id: session[:user_id])
     @amount = params.require(:cash).to_f

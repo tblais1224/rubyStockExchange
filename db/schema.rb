@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20191118153956) do
+ActiveRecord::Schema.define(version: 20191118161412) do
 
   create_table "histories", force: :cascade do |t|
     t.string "symbol"
+    t.integer "shares"
     t.float "price"
     t.float "total"
-    t.integer "shares"
+    t.string "buy_sell_type"
     t.integer "user_id"
-    t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_histories_on_user_id"

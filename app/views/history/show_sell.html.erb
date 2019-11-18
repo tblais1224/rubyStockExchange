@@ -1,0 +1,27 @@
+<h1>Selling History</h1>
+<br>
+<button typ="button"><%= link_to "Purchase History", history_buy_path %></button>
+<br>
+<br>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Symbol</th>
+            <th scope="col">Shares</th>
+            <th scope="col">Price ($)</th>
+            <th scope="col">Total ($)</th>
+            <th scope="col">Date Sold</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @history.each do |sold| %>
+        <tr>
+                <td><%= sold.symbol %></td>
+                <td><%= sold.shares %></td>
+                <td><%= sold.price %></td>
+                <td><%= sold.total %></td>
+                <td><%= sold.created_at %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>

@@ -19,6 +19,16 @@ class StocksController < ApplicationController
     @shares = params.require(:shares).to_i
     @stock = Stock.new(@symbol)
     @portfolio = @stock.buy_stock(@shares, session[:user_id])
+    
+    @history = History.new(
+      symbol: @symbol,
+      shares: @shares,
+      price: @stock.get_quote_price(),
+      total: (@stock.get_quote_price() * @shares).round(2),
+      buy_sell_type: "buy",
+      user_id: session[:user_id]
+    )
+    @history.save
 
     if @portfolio === "insufficient funds"
       redirect_to quote_path(symbol: @symbol)
@@ -32,6 +42,16 @@ class StocksController < ApplicationController
     @shares = params.require(:shares).to_i
     @stock = Stock.new(@symbol)
     @portfolio = @stock.sell_stock(@shares, session[:user_id])
+
+    @history = History.new(
+      symbol: @symbol,
+      shares: @shares,
+      price: @stock.get_quote_price(),
+      total: (@stock.get_quote_price() * @shares).round(2),
+      buy_sell_type: "sell",
+      user_id: session[:user_id]
+    )
+    @history.save
 
     if @portfolio === false
       redirect_to quote_path(symbol: @symbol)

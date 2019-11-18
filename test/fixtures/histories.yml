@@ -2,16 +2,16 @@
 
 one:
   symbol: MyString
+  shares: 1
   price: 1.5
   total: 1.5
-  shares: 1
+  buy_sell_type: MyString
   user_id: 1
-  type: 
 
 two:
   symbol: MyString
+  shares: 1
   price: 1.5
   total: 1.5
-  shares: 1
+  buy_sell_type: MyString
   user_id: 1
-  type: 
