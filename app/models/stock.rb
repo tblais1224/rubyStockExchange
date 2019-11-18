@@ -25,7 +25,8 @@ class Stock
             return "insufficient funds"
         end
         newCash = (@user["cash"] - (@total * @shares)).round(2)
-        @user.update(cash: newCash)
+        @user.cash = newCash
+        @user.save(:validate => false) 
         @portfolio = Portfolio.find_by(user_id: user_id, symbol: @symbol)
         if @portfolio
             @shares += @portfolio.shares
@@ -56,7 +57,8 @@ class Stock
             @portfolio.update(shares: @shares)
         end
         newCash = (@user["cash"] + (@total * @shares)).round(2)
-        @user.update(cash: newCash)
+        @user.cash = newCash
+        @user.save(:validate => false) 
         return @portfolio
     end
     

@@ -8,8 +8,14 @@ class StocksController < ApplicationController
   end
 
   def quoted
-    @symbol = params[:symbol]
-    @stock = Stock.new(@symbol)
+    @symbol = params[:symbol]  
+    begin
+      @stock = Stock.new(@symbol)
+    rescue
+      redirect_to '/quote/new', :flash => { :error => "Invalid Stock Symbol" }
+      return
+    end
+
     @price = @stock.get_quote_price()
     @name = @stock.get_quote_name()
   end
@@ -20,19 +26,18 @@ class StocksController < ApplicationController
     @stock = Stock.new(@symbol)
     @portfolio = @stock.buy_stock(@shares, session[:user_id])
     
-    @history = History.new(
-      symbol: @symbol,
-      shares: @shares,
-      price: @stock.get_quote_price(),
-      total: (@stock.get_quote_price() * @shares).round(2),
-      buy_sell_type: "buy",
-      user_id: session[:user_id]
-    )
-    @history.save
-
     if @portfolio === "insufficient funds"
-      redirect_to quote_path(symbol: @symbol)
+      redirect_to quote_path(symbol: @symbol), :flash => { :error => "Insufficient Funds" }
     else
+      @history = History.new(
+        symbol: @symbol,
+        shares: @shares,
+        price: @stock.get_quote_price(),
+        total: (@stock.get_quote_price() * @shares).round(2),
+        buy_sell_type: "buy",
+        user_id: session[:user_id]
+      )
+      @history.save
       redirect_to '/portfolio'
     end
   end

@@ -10,14 +10,6 @@ class UsersController < ApplicationController
   def create
     params.require(:user)["cash"] = 0.00
     @user = User.new(params.require(:user).permit(:username, :password, :cash))
-
-    @existingUser = User.find_by(username: @user.username)
-    if @existingUser
-      puts @user.errors.full_messages
-      puts "llllllllllllllllllllllllllllllll"
-      redirect_to 'new', alert: @user.errors.full_messages
-    end
-
     if @user.save
       session[:user_id] = @user.id
       redirect_to '/welcome'

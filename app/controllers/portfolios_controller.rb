@@ -15,7 +15,8 @@ class PortfoliosController < ApplicationController
     @user = User.find_by(id: session[:user_id])
     @amount = params.require(:cash).to_f
     @cash = (@user["cash"] + @amount).round(2)
-    @user.update(cash: @cash)
+    @user.cash = @cash
+    @user.save(:validate => false)
     redirect_to '/portfolio'
   end
 
@@ -23,7 +24,8 @@ class PortfoliosController < ApplicationController
     @user = User.find_by(id: session[:user_id])
     @amount = params.require(:cash).to_f
     @cash = (@user["cash"] - @amount).round(2)
-    @user.update(cash: @cash)
+    @user.cash = @cash
+    @user.save(:validate => false)    
     redirect_to '/portfolio'
   end
 end

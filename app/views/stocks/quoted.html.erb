@@ -11,14 +11,22 @@
 <h2>Cash available: $<%= current_user.cash %></h2>
 <br>
 
+<% if flash[:error] %>
+<div class="alert alert-danger"><%= flash[:error] %></div>
+<button class="btn-danger">
+    <%= link_to "Add Cash", portfolio_path %>
+</button>
+<% end %>
+<br>
+
 <% if @price %>
 <h3><%= @name %> latest price is $<%= @price %>.</h3>
 <%= form_tag '/buy' do %>
-    <%= label_tag :shares %>
-    <%= number_field_tag :shares, nil, min: 1, :sel => @price , :id => "shares" %>
-    <h3 id="sharesValue"></h3>
-    <%= hidden_field_tag :symbol, @symbol %>
-    <%= submit_tag "Buy", data: {confirm: 'Are you sure you want to purchase this stock?'}%>
+<%= label_tag :shares %>
+<%= number_field_tag :shares, nil, min: 1, :sel => @price , :id => "shares" %>
+<h3 id="sharesValue"></h3>
+<%= hidden_field_tag :symbol, @symbol %>
+<%= submit_tag "Buy", data: {confirm: 'Are you sure you want to purchase this stock?'}%>
 <%end%>
 <% else %>
 <h3>Invalid stock symbol, try again.</h3>
@@ -29,8 +37,9 @@
         $('#shares').change(function () {
             $("#sharesValue").empty();
             let shareShares = $(this).val() === "1" ? "share" : "shares"
-            $('#sharesValue').append($(this).val(), ` ${shareShares} will cost $`, Math.round(parseFloat($(this)
-                .val()) * parseFloat($(this).attr('sel')) * 100) / 100);
+            $('#sharesValue').append($(this).val(), ` ${shareShares} will cost $`, Math.round(
+                parseFloat($(this)
+                    .val()) * parseFloat($(this).attr('sel')) * 100) / 100);
         });
     });
 </script>

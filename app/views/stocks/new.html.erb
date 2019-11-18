@@ -1,6 +1,10 @@
 <h1>Stock Exchange</h1>
 <p>Quote a stock then buy</p>
 
+<% if flash[:error] %>
+<div class="alert alert-danger"><%= flash[:error] %></div>
+<% end %>
+
 <%= form_tag '/quote' do %>
     <%= label_tag :symbol %>
     <%= text_field_tag :symbol %>
