@@ -21,4 +21,9 @@ Things you may want to cover:
 
 * Deployment instructions
 
-* ...
+1. clone the repo
+2. add .env file in root folder with        iexcloudSecret=your_api_key
+3. bundle i
+4. rake db:migrate
+5. rails s
+
