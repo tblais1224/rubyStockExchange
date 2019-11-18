@@ -16,8 +16,9 @@ class StocksController < ApplicationController
 
   def buy
     @symbol = params.require(:symbol).upcase
+    @shares = params.require(:shares).to_i
     @stock = Stock.new(@symbol)
-    @portfolio = @stock.buy_stock(params.require(:shares).to_i, session[:user_id])
+    @portfolio = @stock.buy_stock(@shares, session[:user_id])
 
     if @portfolio === "insufficient funds"
       redirect_to quote_path(symbol: @symbol)
@@ -27,6 +28,16 @@ class StocksController < ApplicationController
   end
 
   def sell
+    @symbol = params.require(:symbol).upcase
+    @shares = params.require(:shares).to_i
+    @stock = Stock.new(@symbol)
+    @portfolio = @stock.sell_stock(@shares, session[:user_id])
+
+    if @portfolio === false
+      redirect_to quote_path(symbol: @symbol)
+    else
+      redirect_to '/portfolio'
+    end
   end
 
 end

@@ -46,4 +46,26 @@ class Stock
 
         return @portfolio
     end
+
+    def sell_stock(shares, user_id)
+        @symbol = @response["symbol"]
+        @total = get_quote_price().to_f
+        
+        @user = User.find_by(id: user_id)
+
+        @portfolio = Portfolio.find_by(user_id: user_id, symbol: @symbol)
+
+        if @portfolio.shares < shares
+            return false
+        end
+
+        @shares = @portfolio.shares - shares
+        @portfolio.update(shares: @shares)
+
+        newCash = (@user["cash"] + (@total * @shares)).round(2)
+        @user.update(cash: newCash)
+        
+        return @portfolio
+    end
+    
 end
