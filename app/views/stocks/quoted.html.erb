@@ -7,6 +7,10 @@
 <%= submit_tag "Quote" %>
 <%end%>
 
+<br>
+<h2>Cash available: $<%= current_user.cash %></h2>
+<br>
+
 <% if @price %>
 <h3><%= @name %> latest price is $<%= @price %>.</h3>
 <%= form_tag '/buy' do %>

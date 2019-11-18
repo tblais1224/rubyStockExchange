@@ -11,7 +11,7 @@ class Stock
     end
 
     def get_quote_price
-        @response["latestPrice"]
+        @response["latestPrice"].round(2)
     end
 
 
@@ -20,18 +20,13 @@ class Stock
         @name = get_quote_name()
         @total = get_quote_price().to_f
         @symbol = @response["symbol"]
-        
         @user = User.find_by(id: user_id)
-
         if @user["cash"] < shares * @total
             return "insufficient funds"
         end
-
         newCash = (@user["cash"] - (@total * @shares)).round(2)
         @user.update(cash: newCash)
-        
         @portfolio = Portfolio.find_by(user_id: user_id, symbol: @symbol)
-        
         if @portfolio
             @shares += @portfolio.shares
             @portfolio.update(shares: @shares)
@@ -43,33 +38,25 @@ class Stock
                 shares: @shares)
             @portfolio.save
         end
-
         return @portfolio
     end
 
     def sell_stock(shares, user_id)
         @symbol = @response["symbol"]
         @total = get_quote_price().to_f
-        
         @user = User.find_by(id: user_id)
-
         @portfolio = Portfolio.find_by(user_id: user_id, symbol: @symbol)
-
         if @portfolio.shares < shares
             return false
         end
-
         @shares = @portfolio.shares - shares
-
         if @shares === 0
             Portfolio.find(@portfolio.id).destroy
         else
             @portfolio.update(shares: @shares)
         end
-
         newCash = (@user["cash"] + (@total * @shares)).round(2)
         @user.update(cash: newCash)
-        
         return @portfolio
     end
     
