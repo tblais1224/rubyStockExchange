@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?
 
   def authorized
-    redirect_to '/welcome' unless logged_in?
+    redirect_to '/' unless logged_in?
   end
 
   def current_user
