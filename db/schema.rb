@@ -12,13 +12,16 @@
 
 ActiveRecord::Schema.define(version: 20191118161412) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "histories", force: :cascade do |t|
     t.string "symbol"
     t.integer "shares"
     t.float "price"
     t.float "total"
     t.string "buy_sell_type"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_histories_on_user_id"
@@ -29,7 +32,7 @@ ActiveRecord::Schema.define(version: 20191118161412) do
     t.float "total"
     t.string "name"
     t.integer "shares"
-    t.integer "user_id"
+    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_portfolios_on_user_id"
@@ -43,4 +46,6 @@ ActiveRecord::Schema.define(version: 20191118161412) do
     t.float "cash"
   end
 
+  add_foreign_key "histories", "users"
+  add_foreign_key "portfolios", "users"
 end

@@ -8,7 +8,8 @@ Bundler.require(*Rails.groups)
 
 Dotenv::Railtie.load
 
-stockApiSecret = ENV['iexcloudSecret']
+
+
 
 module StockExchange
   class Application < Rails::Application
@@ -18,6 +19,7 @@ module StockExchange
     Dotenv::Railtie.load
 
     config.SECRET_KEY = ENV['iexcloudSecret']
+    config.POSTGRES_PWORD = ENV['postgres']
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
