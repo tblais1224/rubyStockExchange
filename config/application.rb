@@ -6,7 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-Dotenv::Railtie.load
+#Dotenv::Railtie.load
 
 
 
@@ -16,10 +16,10 @@ module StockExchange
 
     Bundler.require(*Rails.groups)
 
-    Dotenv::Railtie.load
+    #Dotenv::Railtie.load
 
-    config.SECRET_KEY = ENV['iexcloudSecret']
-    config.POSTGRES_PWORD = ENV['postgres']
+    config.SECRET_KEY = ENV['SECRET_KEY']
+    config.POSTGRES_PWORD = ENV['POSTGRES_PWORD']
 
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
