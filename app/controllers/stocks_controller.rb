@@ -31,7 +31,7 @@ class StocksController < ApplicationController
     @portfolio = @stock.buy_stock(@shares, session[:user_id])
     
     if @portfolio === "insufficient funds"
-      redirect_to quote_path(symbol: @symbol), :flash => { :error => "Insufficient Funds" }
+      redirect_to portfolio_path, :flash => { :error => "Insufficient funds, please cash add to your account." }
     else
       @history = History.new(
         symbol: @symbol,

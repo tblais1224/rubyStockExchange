@@ -12,6 +12,10 @@ class PortfoliosController < ApplicationController
   end
 
   def add_cash
+    if !params[:cash].present?
+      redirect_to portfolio_path, :flash => { :error => "Enter a valid amount of cash to add." }
+      return 0
+    end
     @user = User.find_by(id: session[:user_id])
     @amount = params.require(:cash).to_f
     @cash = (@user["cash"] + @amount).round(2)
@@ -21,6 +25,10 @@ class PortfoliosController < ApplicationController
   end
 
   def withdraw_cash
+    if !params[:cash].present?
+      redirect_to portfolio_path, :flash => { :error => "Enter a valid amount of stock to withdraw." }
+      return 0
+    end
     @user = User.find_by(id: session[:user_id])
     @amount = params.require(:cash).to_f
     @cash = (@user["cash"] - @amount).round(2)
