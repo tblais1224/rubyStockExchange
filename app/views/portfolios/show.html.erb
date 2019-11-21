@@ -12,7 +12,10 @@
     <%= number_field_tag :cash, nil, min: 1%>
     <%= submit_tag "Withdraw Cash", data: {confirm: 'Are you sure you want to withdraw cash?'}%>
 <%end%>
-
+<br>
+<% if flash[:error] %>
+<div class="alert alert-danger"><%= flash[:error] %></div>
+<% end %>
 <br>
 <table class="table">
     <thead class="thead-dark">

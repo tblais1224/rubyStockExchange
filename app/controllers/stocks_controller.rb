@@ -22,6 +22,10 @@ class StocksController < ApplicationController
 
   def buy
     @symbol = params.require(:symbol).upcase
+    if !params[:shares].present?
+      redirect_to quote_path(symbol: @symbol), :flash => { :error => "Enter a valid amount of stock to purchase." }
+      return 0
+    end
     @shares = params.require(:shares).to_i
     @stock = Stock.new(@symbol)
     @portfolio = @stock.buy_stock(@shares, session[:user_id])
@@ -44,6 +48,10 @@ class StocksController < ApplicationController
 
   def sell
     @symbol = params.require(:symbol).upcase
+    if !params[:shares].present?
+      redirect_to portfolio_path, :flash => { :error => "Enter a valid amount of stock to sell." }
+      return 0
+    end
     @shares = params.require(:shares).to_i
     @stock = Stock.new(@symbol)
     @portfolio = @stock.sell_stock(@shares, session[:user_id])
