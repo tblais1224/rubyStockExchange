@@ -11,7 +11,7 @@ class Stock
     end
 
     def get_quote_price
-        @response["latestPrice"]
+        @response["latestPrice"].round(2)
     end
 
     def buy_stock(shares, user_id)
