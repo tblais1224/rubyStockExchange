@@ -50,15 +50,17 @@ class Stock
         if @portfolio.shares < shares
             return false
         end
+        newCash = (@user["cash"] + (@total * shares)).round(2)
+        @user.cash = newCash
+        @user.save(:validate => false)
+
         @shares = @portfolio.shares - shares
         if @shares === 0
             Portfolio.find(@portfolio.id).destroy
         else
             @portfolio.update(shares: @shares)
         end
-        newCash = (@user["cash"] + (@total * @shares)).round(2)
-        @user.cash = newCash
-        @user.save(:validate => false) 
+         
         return @portfolio
     end
     
