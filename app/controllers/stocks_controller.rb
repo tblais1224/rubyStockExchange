@@ -4,14 +4,14 @@ class StocksController < ApplicationController
   end
 
   def quote
-    redirect_to quote_path(symbol: params.require(:symbol).upcase)
-  end
-
-  def quoted
     if !params[:symbol].present?
       redirect_to quote_new_path, :flash => { :error => "Enter a valid stock symbol." }
       return 0
     end
+    redirect_to quote_path(symbol: params.require(:symbol).upcase)
+  end
+
+  def quoted
     @symbol = params[:symbol]  
     begin
       @stock = Stock.new(@symbol)
