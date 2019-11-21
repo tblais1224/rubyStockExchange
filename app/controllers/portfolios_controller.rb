@@ -5,7 +5,7 @@ class PortfoliosController < ApplicationController
     @totalPortfolioValue = 0
     @portfolio.each do |stock|
       @newStock = Stock.new(stock.symbol)
-      stock['total'] = @newStock.get_quote_price() * stock.shares
+      stock['total'] = (@newStock.get_quote_price() * stock.shares).round(2)
       @totalPortfolioValue += stock.total
     end
     @portfolio
