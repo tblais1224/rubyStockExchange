@@ -8,6 +8,10 @@ class StocksController < ApplicationController
   end
 
   def quoted
+    if !params[:symbol].present?
+      redirect_to quote_new_path, :flash => { :error => "Enter a valid stock symbol." }
+      return 0
+    end
     @symbol = params[:symbol]  
     begin
       @stock = Stock.new(@symbol)

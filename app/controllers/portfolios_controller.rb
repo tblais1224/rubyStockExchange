@@ -26,7 +26,7 @@ class PortfoliosController < ApplicationController
 
   def withdraw_cash
     if !params[:cash].present?
-      redirect_to portfolio_path, :flash => { :error => "Enter a valid amount of stock to withdraw." }
+      redirect_to portfolio_path, :flash => { :error => "Enter a valid amount of cash to withdraw." }
       return 0
     end
     @user = User.find_by(id: session[:user_id])
